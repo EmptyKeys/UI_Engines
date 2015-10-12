@@ -64,6 +64,14 @@ namespace EmptyKeys.UserInterface.Renderers
         public abstract void EndClipped();
 
         /// <summary>
+        /// Determines whether the specified rectangle is outside of clip bounds
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="renderSize">Size of the render.</param>
+        /// <returns></returns>
+        public abstract bool IsClipped(PointF position, Size renderSize);
+
+        /// <summary>
         /// Draws the text.
         /// </summary>
         /// <param name="font">The font.</param>

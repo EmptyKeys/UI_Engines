@@ -333,5 +333,23 @@ namespace EmptyKeys.UserInterface.Renderers
         public override void ResetNativeSize()
         {            
         }
+
+        public override bool IsClipped(PointF position, Size renderSize)
+        {
+            if (isClipped)
+            {
+                testRectangle.X = (int)position.X;
+                testRectangle.Y = (int)position.Y;
+                testRectangle.Width = (int)renderSize.Width;
+                testRectangle.Height = (int)renderSize.Height;
+
+                if (!currentScissorRectangle.Intersects(testRectangle))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

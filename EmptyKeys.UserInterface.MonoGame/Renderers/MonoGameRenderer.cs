@@ -223,7 +223,11 @@ namespace EmptyKeys.UserInterface.Renderers
 
             BeginClipped(clipRectangle);
         }
-        
+
+        /// <summary>
+        /// Begins the clipped.
+        /// </summary>
+        /// <param name="clipRect">The clip rect.</param>
         private void BeginClipped(Rectangle clipRect)
         {
             isClipped = true;
@@ -326,11 +330,23 @@ namespace EmptyKeys.UserInterface.Renderers
             NativeScreenHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
         }
 
+        /// <summary>
+        /// Creates the geometry buffer.
+        /// </summary>
+        /// <returns></returns>
         public override GeometryBuffer CreateGeometryBuffer()
         {
             return new MonoGameGeometryBuffer();
         }
 
+        /// <summary>
+        /// Draws the color of the geometry.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="position">The position.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="opacity">The opacity.</param>
+        /// <param name="depth">The depth.</param>
         public override void DrawGeometryColor(GeometryBuffer buffer, PointF position, ColorW color, float opacity, float depth)
         {
             if (effect == null)
@@ -418,6 +434,14 @@ namespace EmptyKeys.UserInterface.Renderers
             }
         }
 
+        /// <summary>
+        /// Draws the geometry texture.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="position">The position.</param>
+        /// <param name="texture">The texture.</param>
+        /// <param name="opacity">The opacity.</param>
+        /// <param name="depth">The depth.</param>
         public override void DrawGeometryTexture(GeometryBuffer buffer, PointF position, TextureBase texture, float opacity, float depth)
         {
             if (effect == null)
@@ -432,6 +456,30 @@ namespace EmptyKeys.UserInterface.Renderers
             effect.TextureEnabled = true;
 
             DrawGeometry(buffer, position, depth);
+        }
+
+        /// <summary>
+        /// Determines whether the specified rectangle is outside of clip bounds
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <param name="renderSize">Size of the render.</param>
+        /// <returns></returns>
+        public override bool IsClipped(PointF position, Size renderSize)
+        {
+            if (isClipped)
+            {
+                testRectangle.X = (int)position.X;
+                testRectangle.Y = (int)position.Y;
+                testRectangle.Width = (int)renderSize.Width;
+                testRectangle.Height = (int)renderSize.Height;
+
+                if (!spriteBatch.GraphicsDevice.ScissorRectangle.Intersects(testRectangle))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
