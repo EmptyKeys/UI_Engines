@@ -2,7 +2,7 @@
 Engine specific libraries for Empty Keys UI
 
 ## Prerequisites
-Visual Studio 2013 Update 4 or higher and MonoGame 3.4/Paradox 1.2.X installed
+Visual Studio 2013 Update 4 or higher and MonoGame 3.4/Paradox 1.3.X-beta installed
 
 ## EmptyKeys.UserInterface.Core
 Core library with abstract classes and simple types
