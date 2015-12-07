@@ -7,6 +7,14 @@ namespace EmptyKeys.UserInterface.Input
     public abstract class TouchStateBase
     {
         /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public abstract int Id { get; }
+
+        /// <summary>
         /// Gets the normalized x.
         /// </summary>
         /// <value>

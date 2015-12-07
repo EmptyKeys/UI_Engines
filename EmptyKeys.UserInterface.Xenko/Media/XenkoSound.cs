@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SiliconStudio.Paradox.Audio;
+using SiliconStudio.Xenko.Audio;
 
 namespace EmptyKeys.UserInterface.Media
 {
-    public class ParadoxSound : SoundBase
+    public class XenkoSound : SoundBase
     {
         private SoundEffect sound;       
 
@@ -26,7 +26,7 @@ namespace EmptyKeys.UserInterface.Media
         /// Initializes a new instance of the <see cref="SunBurnSound"/> class.
         /// </summary>
         /// <param name="nativeSound">The native sound.</param>
-        public ParadoxSound(object nativeSound)
+        public XenkoSound(object nativeSound)
             : base(nativeSound)
         {
             sound = nativeSound as SoundEffect;            

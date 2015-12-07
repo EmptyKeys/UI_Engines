@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SiliconStudio.Paradox.Input;
+using SiliconStudio.Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
     /// <summary>
-    /// Implements Paradox specific input device
+    /// Implements Xenko specific input device
     /// </summary>
-    public class ParadoxInputDevice : InputDeviceBase
+    public class XenkoInputDevice : InputDeviceBase
     {
-        public static SiliconStudio.Paradox.Input.InputManager NativeInputManager
+        public static SiliconStudio.Xenko.Input.InputManager NativeInputManager
         {
             get;
             set;
         }
 
-        private MouseStateBase mouseState = new ParadoxMouseState();
-        private GamePadStateBase gamePadState = new ParadoxGamePadState();
-        private KeyboardStateBase keyboardState = new ParadoxKeyboardState();
-        private TouchStateBase touchState = new ParadoxTouchState();
+        private MouseStateBase mouseState = new XenkoMouseState();
+        private GamePadStateBase gamePadState = new XenkoGamePadState();
+        private KeyboardStateBase keyboardState = new XenkoKeyboardState();
+        private TouchStateBase touchState = new XenkoTouchState();
 
         /// <summary>
         /// Gets the state of the mouse.
@@ -68,9 +68,9 @@ namespace EmptyKeys.UserInterface.Input
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParadoxInputDevice"/> class.
+        /// Initializes a new instance of the <see cref="XenkoInputDevice"/> class.
         /// </summary>
-        public ParadoxInputDevice()
+        public XenkoInputDevice()
             : base()
         {
             NativeInputManager.ActivatedGestures.Add(new GestureConfigDrag());

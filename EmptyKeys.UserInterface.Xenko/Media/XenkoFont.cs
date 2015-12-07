@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Paradox.Graphics;
+using SiliconStudio.Xenko.Graphics;
 
 namespace EmptyKeys.UserInterface.Media
 {
-    public class ParadoxFont : FontBase
+    public class XenkoFont : FontBase
     {
         private SpriteFont font;
 
@@ -56,7 +56,7 @@ namespace EmptyKeys.UserInterface.Media
         /// Initializes a new instance of the <see cref="MonoGameFont" /> class.
         /// </summary>
         /// <param name="nativeFont">The native font.</param>
-        public ParadoxFont(object nativeFont)
+        public XenkoFont(object nativeFont)
             : base(nativeFont)
         {
             font = nativeFont as SpriteFont;

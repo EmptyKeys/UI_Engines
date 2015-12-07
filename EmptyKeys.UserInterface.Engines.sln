@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyKeys.UserInterface.Paradox", "EmptyKeys.UserInterface.Paradox\EmptyKeys.UserInterface.Paradox.csproj", "{6DCC8AE4-8BB8-4526-B733-EB76FAB1393F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmptyKeys.UserInterface.Xenko", "EmptyKeys.UserInterface.Xenko\EmptyKeys.UserInterface.Xenko.csproj", "{6DCC8AE4-8BB8-4526-B733-EB76FAB1393F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

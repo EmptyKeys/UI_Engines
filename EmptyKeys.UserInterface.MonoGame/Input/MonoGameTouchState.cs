@@ -21,6 +21,7 @@ namespace EmptyKeys.UserInterface.Input
             set;
         }
 
+        private int id;
         private float normalizedX;
         private float normalizedY;
         private TouchGestures gesture;
@@ -29,6 +30,17 @@ namespace EmptyKeys.UserInterface.Input
         private float moveX;
         private float moveY;
         private bool hasGesture;
+
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public override int Id
+        {
+            get { return id; }
+        }
 
         /// <summary>
         /// Gets the normalized x.
@@ -133,6 +145,7 @@ namespace EmptyKeys.UserInterface.Input
                 isTouched = true;
                 TouchLocation location = ActualState[0];
 
+                id = location.Id;
                 normalizedX = location.Position.X / viewport.Width;
                 normalizedY = location.Position.Y / viewport.Height;
 
@@ -180,7 +193,7 @@ namespace EmptyKeys.UserInterface.Input
 
                 if (previousState.State == TouchLocationState.Pressed)
                 {
-                    locations[0] = new TouchLocation(0, TouchLocationState.Pressed, location.Position);
+                    locations[0] = new TouchLocation(previousState.Id, TouchLocationState.Pressed, location.Position);
                 }
                 else
                 {
@@ -192,12 +205,12 @@ namespace EmptyKeys.UserInterface.Input
             }
             else if (previousLocation.State == TouchLocationState.Moved)
             {
-                locations[0] = new TouchLocation(0, TouchLocationState.Released, previousLocation.Position);
+                locations[0] = new TouchLocation(previousLocation.Id, TouchLocationState.Released, previousLocation.Position);
                 previousLocation = new TouchLocation();
                 return new TouchCollection(locations);
             }
 
             return new TouchCollection(empty);
-        }
+        }        
     }
 }

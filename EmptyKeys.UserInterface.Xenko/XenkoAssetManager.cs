@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Media;
-using SiliconStudio.Paradox.Audio;
-using SiliconStudio.Paradox.Graphics;
+using SiliconStudio.Xenko.Audio;
+using SiliconStudio.Xenko.Graphics;
 using ContentManager = SiliconStudio.Core.Serialization.Assets.AssetManager;
 
 namespace EmptyKeys.UserInterface
 {
-    public class ParadoxAssetManager : AssetManager
+    public class XenkoAssetManager : AssetManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParadoxAssetManager"/> class.
+        /// Initializes a new instance of the <see cref="XenkoAssetManager"/> class.
         /// </summary>
-        public ParadoxAssetManager()
+        public XenkoAssetManager()
             : base()
         {
         }

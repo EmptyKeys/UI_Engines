@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Paradox.Graphics;
-using Texture2D = SiliconStudio.Paradox.Graphics.Texture;
+using SiliconStudio.Xenko.Graphics;
+using Texture2D = SiliconStudio.Xenko.Graphics.Texture;
 
 namespace EmptyKeys.UserInterface.Media
 {
-    public class ParadoxTexture : TextureBase
+    public class XenkoTexture : TextureBase
     {
         private Texture2D texture;
 
@@ -51,7 +51,7 @@ namespace EmptyKeys.UserInterface.Media
         /// Initializes a new instance of the <see cref="MonoGameTexture"/> class.
         /// </summary>
         /// <param name="nativeTexture">The native texture.</param>
-        public ParadoxTexture(object nativeTexture)
+        public XenkoTexture(object nativeTexture)
             : base(nativeTexture)
         {
             texture = nativeTexture as Texture2D;

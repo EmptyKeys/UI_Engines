@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Renderers;
 using SiliconStudio.Core;
 using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Paradox.Graphics;
-using SiliconStudio.Paradox.Graphics.Internals;
-using SiliconStudio.Paradox.Rendering;
-using VertexBuffer = SiliconStudio.Paradox.Graphics.Buffer;
+using SiliconStudio.Xenko.Graphics;
+using SiliconStudio.Xenko.Graphics.Internals;
+using SiliconStudio.Xenko.Rendering;
+using VertexBuffer = SiliconStudio.Xenko.Graphics.Buffer;
 
 namespace EmptyKeys.UserInterface.Media
 {
-    public class ParadoxGeometryBuffer : GeometryBuffer
+    public class XenkoGeometryBuffer : GeometryBuffer
     {
         private readonly Effect effect;
         
@@ -72,14 +72,14 @@ namespace EmptyKeys.UserInterface.Media
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParadoxGeometryBuffer"/> class.
+        /// Initializes a new instance of the <see cref="XenkoGeometryBuffer"/> class.
         /// </summary>
-        public ParadoxGeometryBuffer()
+        public XenkoGeometryBuffer()
             : base()
         {
-            effect = new Effect(ParadoxRenderer.GraphicsDevice, SpriteEffect.Bytecode, null);
+            effect = new Effect(XenkoRenderer.GraphicsDevice, SpriteEffect.Bytecode, null);
             parameters = new ParameterCollection();            
-            parameterCollectionGroup = new EffectParameterCollectionGroup(ParadoxRenderer.GraphicsDevice, effect, new[] { parameters });
+            parameterCollectionGroup = new EffectParameterCollectionGroup(XenkoRenderer.GraphicsDevice, effect, new[] { parameters });
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace EmptyKeys.UserInterface.Media
                 vertex[i] = new VertexPositionNormalTexture(new Vector3(points[i].X, points[i].Y, 0), new Vector3(0, 0, 1), Vector2.Zero);
             }            
 
-            vertexBuffer = VertexBuffer.Vertex.New(ParadoxRenderer.GraphicsDevice, vertex);
+            vertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
             vertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
-            VertexArray = VertexArrayObject.New(ParadoxRenderer.GraphicsDevice,
+            VertexArray = VertexArrayObject.New(XenkoRenderer.GraphicsDevice,
                 new VertexBufferBinding(vertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size));
         }
 
@@ -144,9 +144,9 @@ namespace EmptyKeys.UserInterface.Media
                 vertex[i] = new VertexPositionNormalTexture(new Vector3(points[i].X, points[i].Y, 0), new Vector3(0,0,1), uv);
             }
 
-            vertexBuffer = VertexBuffer.Vertex.New(ParadoxRenderer.GraphicsDevice, vertex);
+            vertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
             vertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
-            VertexArray = VertexArrayObject.New(ParadoxRenderer.GraphicsDevice, effect.InputSignature,
+            VertexArray = VertexArrayObject.New(XenkoRenderer.GraphicsDevice, effect.InputSignature,
                 new VertexBufferBinding(vertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size));
         }
 

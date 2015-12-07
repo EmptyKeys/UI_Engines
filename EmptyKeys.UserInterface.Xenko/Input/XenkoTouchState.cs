@@ -4,11 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Paradox.Input;
+using SiliconStudio.Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
-    public class ParadoxTouchState : TouchStateBase
+    /// <summary>
+    /// Implements Xenko specific touch state
+    /// </summary>
+    public class XenkoTouchState : TouchStateBase
     {
         private float normalizedX;
         private float normalizedY;
@@ -20,6 +23,18 @@ namespace EmptyKeys.UserInterface.Input
         private bool hasGesture;
         private PointerState previousState;
         private Vector2 previousLocation;
+        private int id;
+
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public override int Id
+        {
+            get { return id; }
+        }
 
         /// <summary>
         /// Gets the normalized x.
@@ -109,12 +124,15 @@ namespace EmptyKeys.UserInterface.Input
             get { return hasGesture; }
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public override void Update()
         {
             isTouched = false;
             hasGesture = false;
 
-            SiliconStudio.Paradox.Input.InputManager manager = ParadoxInputDevice.NativeInputManager;
+            SiliconStudio.Xenko.Input.InputManager manager = XenkoInputDevice.NativeInputManager;
 
             if (manager.PointerEvents.Count > 0)
             {
@@ -125,6 +143,7 @@ namespace EmptyKeys.UserInterface.Input
                     return;
                 }
 
+                id = pointerEvent.PointerId;
                 isTouched = true;
                 normalizedX = pointerEvent.Position.X;
                 normalizedY = pointerEvent.Position.Y;
@@ -208,6 +227,6 @@ namespace EmptyKeys.UserInterface.Input
                         break;
                 }                
             }
-        }
+        }        
     }
 }

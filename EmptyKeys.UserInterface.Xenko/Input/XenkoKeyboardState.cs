@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SiliconStudio.Paradox.Input;
+using SiliconStudio.Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
-    public class ParadoxKeyboardState : KeyboardStateBase
+    /// <summary>
+    /// Implements Xenko specific keyboard state
+    /// </summary>
+    public class XenkoKeyboardState : KeyboardStateBase
     {
         private Dictionary<int, int> translationTable = new Dictionary<int, int>();
 
-        public ParadoxKeyboardState()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XenkoKeyboardState"/> class.
+        /// </summary>
+        public XenkoKeyboardState()
             : base()
         {
             translationTable.Add(8, 2);
@@ -30,6 +36,11 @@ namespace EmptyKeys.UserInterface.Input
             translationTable.Add(254, 171);            
         }
 
+        /// <summary>
+        /// Determines whether [is key pressed] [the specified key code].
+        /// </summary>
+        /// <param name="keyCode">The key code.</param>
+        /// <returns></returns>
         public override bool IsKeyPressed(KeyCode keyCode)
         {
             Keys key = Keys.None;
@@ -81,9 +92,12 @@ namespace EmptyKeys.UserInterface.Input
                                         }
                                     }
 
-            return ParadoxInputDevice.NativeInputManager.IsKeyDown(key);
+            return XenkoInputDevice.NativeInputManager.IsKeyDown(key);
         }
 
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
         public override void Update()
         {            
         }

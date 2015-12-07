@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Input;
 using EmptyKeys.UserInterface.Media;
 using EmptyKeys.UserInterface.Renderers;
-using SiliconStudio.Paradox.Games;
+using SiliconStudio.Xenko.Games;
 
 namespace EmptyKeys.UserInterface
 {
     /// <summary>
-    /// Implements Paradox specific engine
+    /// Implements Xenko specific engine
     /// </summary>
-    public class ParadoxEngine : Engine
+    public class XenkoEngine : Engine
     {
         private Renderer renderer;
-        private AudioDevice audioDevice = new ParadoxAudioDevice();
-        private AssetManager assetManager = new ParadoxAssetManager();
-        private InputDeviceBase inputDevice = new ParadoxInputDevice();
+        private AudioDevice audioDevice = new XenkoAudioDevice();
+        private AssetManager assetManager = new XenkoAssetManager();
+        private InputDeviceBase inputDevice = new XenkoInputDevice();
 
         /// <summary>
         /// Gets the renderer.
@@ -65,15 +65,15 @@ namespace EmptyKeys.UserInterface
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParadoxEngine"/> class.
+        /// Initializes a new instance of the <see cref="XenkoEngine"/> class.
         /// </summary>
         /// <param name="graphicsDevice">The graphics device.</param>
         /// <param name="nativeScreenWidth">Width of the native screen.</param>
         /// <param name="nativeScreenHeight">Height of the native screen.</param>
-        public ParadoxEngine(GraphicsDeviceManager manager, int nativeScreenWidth, int nativeScreenHeight)
+        public XenkoEngine(GraphicsDeviceManager manager, int nativeScreenWidth, int nativeScreenHeight)
             : base()
         {
-            renderer = new ParadoxRenderer(manager);
+            renderer = new XenkoRenderer(manager);
         }        
     }
 }

@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Media;
 using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Paradox.Games;
-using SiliconStudio.Paradox.Graphics;
-using SiliconStudio.Paradox.Rendering;
-using Texture2D = SiliconStudio.Paradox.Graphics.Texture;
+using SiliconStudio.Xenko.Games;
+using SiliconStudio.Xenko.Graphics;
+using SiliconStudio.Xenko.Rendering;
+using Texture2D = SiliconStudio.Xenko.Graphics.Texture;
 
 namespace EmptyKeys.UserInterface.Renderers
 {
-    public class ParadoxRenderer : Renderer
+    public class XenkoRenderer : Renderer
     {
         private static GraphicsDeviceManager manager;
 
@@ -52,7 +52,7 @@ namespace EmptyKeys.UserInterface.Renderers
             get { return manager.IsFullScreen; }
         }
 
-        public ParadoxRenderer(GraphicsDeviceManager graphicsDeviceManager)
+        public XenkoRenderer(GraphicsDeviceManager graphicsDeviceManager)
             : base()
         {
             manager = graphicsDeviceManager;
@@ -215,7 +215,7 @@ namespace EmptyKeys.UserInterface.Renderers
                 return null;
             }
 
-            return new ParadoxTexture(nativeTexture);
+            return new XenkoTexture(nativeTexture);
         }
 
         public override TextureBase CreateTexture(int width, int height, bool mipmap, bool dynamic)
@@ -235,28 +235,28 @@ namespace EmptyKeys.UserInterface.Renderers
                 native = Texture2D.New2D(GraphicsDevice, width, height, PixelFormat.R8G8B8A8_UNorm);
             }
 
-            ParadoxTexture texture = new ParadoxTexture(native);
+            XenkoTexture texture = new XenkoTexture(native);
             return texture;
         }
 
         public override GeometryBuffer CreateGeometryBuffer()
         {
-            return new ParadoxGeometryBuffer();
+            return new XenkoGeometryBuffer();
         }
 
         public override void DrawGeometryColor(GeometryBuffer buffer, PointF position, ColorW color, float opacity, float depth)
         {
-            ParadoxGeometryBuffer paradoxBuffer = buffer as ParadoxGeometryBuffer;
+            XenkoGeometryBuffer xenkoBuffer = buffer as XenkoGeometryBuffer;
 
             Color4 nativeColor = new Color4(color.PackedValue) * opacity;
-            paradoxBuffer.Parameters.Set(SpriteEffectKeys.Color, nativeColor);
-            paradoxBuffer.Parameters.Set(TexturingKeys.Texture0, GraphicsDevice.GetSharedWhiteTexture());
+            xenkoBuffer.Parameters.Set(SpriteEffectKeys.Color, nativeColor);
+            xenkoBuffer.Parameters.Set(TexturingKeys.Texture0, GraphicsDevice.GetSharedWhiteTexture());
             DrawGeometry(buffer, position, depth);
         }
 
         public override void DrawGeometryTexture(GeometryBuffer buffer, PointF position, TextureBase texture, float opacity, float depth)
         {
-            ParadoxGeometryBuffer paradoxBuffer = buffer as ParadoxGeometryBuffer;
+            XenkoGeometryBuffer paradoxBuffer = buffer as XenkoGeometryBuffer;
             Texture2D nativeTexture = texture.GetNativeTexture() as Texture2D;
             paradoxBuffer.Parameters.Set(SpriteEffectKeys.Color, Color.White * opacity);
             paradoxBuffer.Parameters.Set(TexturingKeys.Texture0, nativeTexture);
@@ -270,7 +270,7 @@ namespace EmptyKeys.UserInterface.Renderers
                 spriteBatch.End();
             }
 
-            ParadoxGeometryBuffer paradoxBuffer = buffer as ParadoxGeometryBuffer;
+            XenkoGeometryBuffer paradoxBuffer = buffer as XenkoGeometryBuffer;
             if (isClipped)
             {
                 GraphicsDevice.SetRasterizerState(rasterizerScissorState);
@@ -327,7 +327,7 @@ namespace EmptyKeys.UserInterface.Renderers
 
         public override FontBase CreateFont(object nativeFont)
         {
-            return new ParadoxFont(nativeFont);
+            return new XenkoFont(nativeFont);
         }
 
         public override void ResetNativeSize()

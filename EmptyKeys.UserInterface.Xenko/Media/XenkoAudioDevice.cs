@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace EmptyKeys.UserInterface.Media
 {
     /// <summary>
-    /// Implements Paradox specific audio device
+    /// Implements Xenko specific audio device
     /// </summary>
-    public class ParadoxAudioDevice : AudioDevice
+    public class XenkoAudioDevice : AudioDevice
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParadoxAudioDevice"/> class.
+        /// Initializes a new instance of the <see cref="XenkoAudioDevice"/> class.
         /// </summary>
-        public ParadoxAudioDevice()
+        public XenkoAudioDevice()
             : base()
         {
         }
@@ -26,7 +26,7 @@ namespace EmptyKeys.UserInterface.Media
         /// <returns></returns>
         public override SoundBase CreateSound(object nativeSound)
         {
-            return new ParadoxSound(nativeSound);
+            return new XenkoSound(nativeSound);
         }
     }
 }
