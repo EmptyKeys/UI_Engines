@@ -11,6 +11,6 @@ Core library with abstract classes and simple types
 MonoGame specific library
 http://www.monogame.net/
 
-## EmptyKeys.UserInterface.Paradox
-Paradox 3d specific library 
+## EmptyKeys.UserInterface.Xenko
+Xenko 3d specific library 
 http://paradox3d.net
