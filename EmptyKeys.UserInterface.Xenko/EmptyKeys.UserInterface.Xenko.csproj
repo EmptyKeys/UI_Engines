@@ -68,61 +68,7 @@
       <Name>EmptyKeys.UserInterface.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="SiliconStudio.Core, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Core.IO, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Core.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Core.Mathematics, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Core.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Core.MicroThreading, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Core.MicroThreading.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Core.Serialization, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Core.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Audio">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Audio.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Engine">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Games">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Games.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Graphics">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Graphics.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Input">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Input.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Physics">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Physics.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Shaders">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Shaders.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.Shaders.Compiler">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.Shaders.Compiler.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.SpriteStudio.Runtime">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.SpriteStudio.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="SiliconStudio.Xenko.UI">
-      <HintPath>C:\Program Files\Silicon Studio\Xenko\GamePackages\Xenko.1.4.2-beta\Bin\Windows-Direct3D11\SiliconStudio.Xenko.UI.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+ 
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SiliconStudioPackageProps)" Condition="Exists('$(SiliconStudioPackageProps)')" />
   <Import Project="$(SiliconStudioXenkoDir)\Targets\SiliconStudio.Common.targets" Condition="Exists('$(SiliconStudioXenkoDir)\Targets\SiliconStudio.Common.targets')" />
