@@ -82,15 +82,7 @@
     <Compile Include="FNAAssetManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FNA\FNA.dll" />
-    <Content Include="FNA\LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FNA\FNA.dll.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="FNA, Version=15.12.21.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="FNA">
       <HintPath>FNA\FNA.dll</HintPath>
     </Reference>
   </ItemGroup>

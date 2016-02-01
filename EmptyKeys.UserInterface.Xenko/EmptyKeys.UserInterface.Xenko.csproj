@@ -28,8 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <SiliconStudioPlatform>Windows</SiliconStudioPlatform>
-    <SiliconStudioXenkoGraphicsApi>Direct3D11</SiliconStudioXenkoGraphicsApi>
+    <SiliconStudioPlatform>Windows</SiliconStudioPlatform>    
     <SiliconStudioBuildProfile>Windows</SiliconStudioBuildProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -39,8 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <SiliconStudioPlatform>Windows</SiliconStudioPlatform>
-    <SiliconStudioXenkoGraphicsApi>Direct3D11</SiliconStudioXenkoGraphicsApi>
+    <SiliconStudioPlatform>Windows</SiliconStudioPlatform>    
     <SiliconStudioBuildProfile>Windows</SiliconStudioBuildProfile>
   </PropertyGroup>
   <ItemGroup>
@@ -68,7 +66,7 @@
       <Name>EmptyKeys.UserInterface.Core</Name>
     </ProjectReference>
   </ItemGroup>
- 
+
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SiliconStudioPackageProps)" Condition="Exists('$(SiliconStudioPackageProps)')" />
   <Import Project="$(SiliconStudioXenkoDir)\Targets\SiliconStudio.Common.targets" Condition="Exists('$(SiliconStudioXenkoDir)\Targets\SiliconStudio.Common.targets')" />
