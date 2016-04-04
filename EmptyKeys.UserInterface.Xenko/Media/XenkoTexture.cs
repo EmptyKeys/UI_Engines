@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmptyKeys.UserInterface.Renderers;
 using SiliconStudio.Core.Mathematics;
 using SiliconStudio.Xenko.Graphics;
 using Texture2D = SiliconStudio.Xenko.Graphics.Texture;
@@ -75,8 +76,8 @@ namespace EmptyKeys.UserInterface.Media
             {
                 return;
             }
-
-            texture.SetData<Color>(new Color[] { Color.White });
+            
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, new Color[] { Color.White });
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace EmptyKeys.UserInterface.Media
                 }
             }
 
-            texture.SetData<Color>(data);
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, data);
         }
 
         /// <summary>
@@ -219,7 +220,7 @@ namespace EmptyKeys.UserInterface.Media
                 }
             }
 
-            texture.SetData<Color>(data);
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, data);
         }        
 
         private static float GetLength(PointF start, PointF end)
@@ -305,7 +306,7 @@ namespace EmptyKeys.UserInterface.Media
                 }
             }
 
-            texture.SetData<Color>(data);
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, data);
         }
 
         /// <summary>
@@ -370,7 +371,7 @@ namespace EmptyKeys.UserInterface.Media
                 }
             }
 
-            texture.SetData<Color>(data);
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, data);
         }
 
         /// <summary>
@@ -391,7 +392,7 @@ namespace EmptyKeys.UserInterface.Media
                 buffer[i] = new Color(data[i]);
             }
 
-            texture.SetData<Color>(buffer);
+            texture.SetData<Color>(XenkoRenderer.GraphicsContext.CommandList, buffer);
         }
 
         /// <summary>

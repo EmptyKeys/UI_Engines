@@ -7,7 +7,6 @@ using EmptyKeys.UserInterface.Renderers;
 using SiliconStudio.Core;
 using SiliconStudio.Core.Mathematics;
 using SiliconStudio.Xenko.Graphics;
-using SiliconStudio.Xenko.Graphics.Internals;
 using SiliconStudio.Xenko.Rendering;
 using VertexBuffer = SiliconStudio.Xenko.Graphics.Buffer;
 
@@ -15,11 +14,7 @@ namespace EmptyKeys.UserInterface.Media
 {
     public class XenkoGeometryBuffer : GeometryBuffer
     {
-        private readonly Effect effect;
-        
-        private VertexBuffer vertexBuffer;
-        private ParameterCollection parameters;
-        private EffectParameterCollectionGroup parameterCollectionGroup;
+        private readonly EffectInstance effect;                  
 
         /// <summary>
         /// Gets the effect.
@@ -27,7 +22,7 @@ namespace EmptyKeys.UserInterface.Media
         /// <value>
         /// The effect.
         /// </value>
-        public Effect Effect
+        public EffectInstance EffectInstance
         {
             get
             {
@@ -36,40 +31,28 @@ namespace EmptyKeys.UserInterface.Media
         }
 
         /// <summary>
-        /// Gets or sets the vertex array.
+        /// Gets the vertex buffer.
         /// </summary>
         /// <value>
-        /// The vertex array.
+        /// The vertex buffer.
         /// </value>
-        public VertexArrayObject VertexArray { get; set; }
+        public VertexBuffer VertexBuffer { get; private set; }
 
         /// <summary>
-        /// Gets the parameters.
+        /// Gets the vertex buffer binding.
         /// </summary>
         /// <value>
-        /// The parameters.
+        /// The vertex buffer binding.
         /// </value>
-        public ParameterCollection Parameters
-        {
-            get
-            {
-                return parameters;
-            }
-        }
+        public VertexBufferBinding VertexBufferBinding { get; private set; }
 
         /// <summary>
-        /// Gets the parameter collection group.
+        /// Gets the input element descriptions.
         /// </summary>
         /// <value>
-        /// The parameter collection group.
+        /// The input element descriptions.
         /// </value>
-        public EffectParameterCollectionGroup ParameterCollectionGroup
-        {
-            get
-            {
-                return parameterCollectionGroup;
-            }
-        }
+        public InputElementDescription[] InputElementDescriptions { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XenkoGeometryBuffer"/> class.
@@ -77,9 +60,8 @@ namespace EmptyKeys.UserInterface.Media
         public XenkoGeometryBuffer()
             : base()
         {
-            effect = new Effect(XenkoRenderer.GraphicsDevice, SpriteEffect.Bytecode, null);
-            parameters = new ParameterCollection();            
-            parameterCollectionGroup = new EffectParameterCollectionGroup(XenkoRenderer.GraphicsDevice, effect, new[] { parameters });
+            effect = new EffectInstance(new Effect(XenkoRenderer.GraphicsDevice, SpriteEffect.Bytecode));
+            effect.UpdateEffect(XenkoRenderer.GraphicsDevice);
         }
 
         /// <summary>
@@ -95,12 +77,12 @@ namespace EmptyKeys.UserInterface.Media
             for (int i = 0; i < points.Count; i++)
             {
                 vertex[i] = new VertexPositionNormalTexture(new Vector3(points[i].X, points[i].Y, 0), new Vector3(0, 0, 1), Vector2.Zero);
-            }            
+            }
 
-            vertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
-            vertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
-            VertexArray = VertexArrayObject.New(XenkoRenderer.GraphicsDevice,
-                new VertexBufferBinding(vertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size));
+            VertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
+            VertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
+            VertexBufferBinding = new VertexBufferBinding(VertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size);
+            InputElementDescriptions = VertexBufferBinding.Declaration.CreateInputElements();
         }
 
         private void SetPrimitiveCount(GeometryPrimitiveType primitiveType, int pointCount)
@@ -144,10 +126,10 @@ namespace EmptyKeys.UserInterface.Media
                 vertex[i] = new VertexPositionNormalTexture(new Vector3(points[i].X, points[i].Y, 0), new Vector3(0,0,1), uv);
             }
 
-            vertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
-            vertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
-            VertexArray = VertexArrayObject.New(XenkoRenderer.GraphicsDevice, effect.InputSignature,
-                new VertexBufferBinding(vertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size));
+            VertexBuffer = VertexBuffer.Vertex.New(XenkoRenderer.GraphicsDevice, vertex);
+            VertexBuffer.Reload = (graphicsResource) => ((VertexBuffer)graphicsResource).Recreate(vertex);
+            VertexBufferBinding = new VertexBufferBinding(VertexBuffer, VertexPositionNormalTexture.Layout, vertex.Length, VertexPositionNormalTexture.Size);
+            InputElementDescriptions = VertexBufferBinding.Declaration.CreateInputElements();
         }
 
         /// <summary>
@@ -155,15 +137,10 @@ namespace EmptyKeys.UserInterface.Media
         /// </summary>
         public override void Dispose()
         {
-            if (VertexArray != null && !VertexArray.IsDisposed)
+            if (VertexBuffer != null && !VertexBuffer.IsDisposed)
             {
-                VertexArray.Dispose();
-            }
-
-            if (vertexBuffer != null && !vertexBuffer.IsDisposed)
-            {
-                vertexBuffer.Dispose();
-            }
+                VertexBuffer.Dispose();
+            }            
 
             if (effect != null && !effect.IsDisposed)
             {

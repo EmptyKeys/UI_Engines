@@ -70,7 +70,7 @@ namespace EmptyKeys.UserInterface
         /// <param name="graphicsDevice">The graphics device.</param>
         /// <param name="nativeScreenWidth">Width of the native screen.</param>
         /// <param name="nativeScreenHeight">Height of the native screen.</param>
-        public XenkoEngine(GraphicsDeviceManager manager, int nativeScreenWidth, int nativeScreenHeight)
+        public XenkoEngine(GraphicsDeviceManager manager)
             : base()
         {
             renderer = new XenkoRenderer(manager);
