@@ -216,7 +216,7 @@ namespace EmptyKeys.UserInterface.Input
                         normalizedY = longPressEvent.Position.Y;
                         moveX = moveY = 0;
                         break;
-                    case GestureType.Tap:
+                    case GestureType.Tap:                        
                         gesture = TouchGestures.Tap;
                         var tapEvent = gestureEvent as GestureEventTap;
                         normalizedX = tapEvent.TapPosition.X;

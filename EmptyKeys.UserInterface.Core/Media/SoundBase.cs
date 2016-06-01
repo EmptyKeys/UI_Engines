@@ -15,6 +15,14 @@ namespace EmptyKeys.UserInterface.Media
         public abstract SoundState State { get; }
 
         /// <summary>
+        /// Gets or sets the volume.
+        /// </summary>
+        /// <value>
+        /// The volume.
+        /// </value>
+        public abstract float Volume { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SoundBase"/> class.
         /// </summary>
         /// <param name="nativeSound">The native sound.</param>

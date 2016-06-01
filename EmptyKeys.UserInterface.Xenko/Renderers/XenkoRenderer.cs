@@ -57,6 +57,7 @@ namespace EmptyKeys.UserInterface.Renderers
         private SpriteBatch spriteBatch;
         private Vector2 vecPosition;
         private Vector2 vecScale;
+        private Vector2 origin;        
         private Color vecColor;
         private Rectangle testRectangle;
         private Rectangle sourceRect;
@@ -91,9 +92,10 @@ namespace EmptyKeys.UserInterface.Renderers
             scissorRasterizerStateDescription = RasterizerStates.CullNone;
             scissorRasterizerStateDescription.ScissorTestEnable = true; // enables the scissor test            
 
-            geometryRasterizerStateDescription = RasterizerStates.CullNone;
+            geometryRasterizerStateDescription = RasterizerStates.CullNone;            
             //geometryRasterizerStateDescription.FillMode = FillMode.Wireframe;            
-            geometryPipelineState = new MutablePipelineState(manager.GraphicsDevice);            
+            geometryPipelineState = new MutablePipelineState(manager.GraphicsDevice);
+            geometryPipelineState.State.DepthStencilState = DepthStencilStates.None;
         }
 
         public override void Begin()
@@ -102,7 +104,7 @@ namespace EmptyKeys.UserInterface.Renderers
             isSpriteRenderInProgress = true;
             if (clipRectanges.Count == 0)
             {
-                spriteBatch.Begin(graphicsContext);
+                spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred, null, null, DepthStencilStates.None);
             }
             else
             {
@@ -151,7 +153,7 @@ namespace EmptyKeys.UserInterface.Renderers
             graphicsContext.CommandList.SetScissorRectangles(clipRect.Left, clipRect.Top, clipRect.Right, clipRect.Bottom);            
 
             currentScissorRectangle = clipRect;
-            spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred,  null, null, null, scissorRasterizerStateDescription, null, 0);
+            spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred,  null, null, DepthStencilStates.None, scissorRasterizerStateDescription, null, 0);
             clipRectanges.Push(clipRect);
         }
 
@@ -196,6 +198,12 @@ namespace EmptyKeys.UserInterface.Renderers
             testRectangle.Y = (int)position.Y;
             testRectangle.Width = (int)renderSize.Width;
             testRectangle.Height = (int)renderSize.Height;
+            if (centerOrigin)
+            {
+                testRectangle.X -= testRectangle.Width / 2;
+                testRectangle.Y -= testRectangle.Height / 2;
+            }
+
             if (isClipped && !currentScissorRectangle.Intersects(testRectangle))
             {
                 return;
@@ -228,8 +236,14 @@ namespace EmptyKeys.UserInterface.Renderers
             vecColor.R = color.R;
             vecColor.G = color.G;
             vecColor.B = color.B;
+            if (centerOrigin)
+            {
+                origin.X = testRectangle.Width / 2f;
+                origin.Y = testRectangle.Height / 2f;
+            }
+
             Texture2D native = texture.GetNativeTexture() as Texture2D;
-            spriteBatch.Draw(native, testRectangle, sourceRect, vecColor, 0, Vector2.Zero);
+            spriteBatch.Draw(native, testRectangle, sourceRect, vecColor, 0, origin);
         }
 
         public override Rect GetViewport()
@@ -353,7 +367,7 @@ namespace EmptyKeys.UserInterface.Renderers
             geometryPipelineState.State.RootSignature = paradoxBuffer.EffectInstance.RootSignature;
             geometryPipelineState.State.EffectBytecode = paradoxBuffer.EffectInstance.Effect.Bytecode;
             geometryPipelineState.State.InputElements = paradoxBuffer.InputElementDescriptions;            
-            geometryPipelineState.State.Output.CaptureState(graphicsContext.CommandList);
+            geometryPipelineState.State.Output.CaptureState(graphicsContext.CommandList);            
             geometryPipelineState.Update();
             graphicsContext.CommandList.SetPipelineState(geometryPipelineState.CurrentState);            
 
@@ -364,11 +378,11 @@ namespace EmptyKeys.UserInterface.Renderers
             {
                 if (isClipped)
                 {
-                    spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred, null, null, null, scissorRasterizerStateDescription, null, 0);                    
+                    spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred, null, null, DepthStencilStates.None, scissorRasterizerStateDescription, null, 0);                    
                 }
                 else
                 {
-                    spriteBatch.Begin(graphicsContext);
+                    spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred, null, null, DepthStencilStates.None);
                 }
             }
         }

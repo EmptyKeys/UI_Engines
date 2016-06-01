@@ -23,6 +23,33 @@ namespace EmptyKeys.UserInterface.Media
         }
 
         /// <summary>
+        /// Gets or sets the volume.
+        /// </summary>
+        /// <value>
+        /// The volume.
+        /// </value>
+        public override float Volume
+        {
+            get
+            {
+                if (sound != null)
+                {
+                    return sound.Volume;
+                }
+
+                return 0;
+            }
+
+            set
+            {
+                if (sound != null)
+                {
+                    sound.Volume = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SunBurnSound"/> class.
         /// </summary>
         /// <param name="nativeSound">The native sound.</param>
@@ -41,7 +68,7 @@ namespace EmptyKeys.UserInterface.Media
             {
                 return;
             }
-
+            
             sound.Play();
         }
 

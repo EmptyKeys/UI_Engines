@@ -75,7 +75,8 @@ namespace EmptyKeys.UserInterface.Input
         {
             NativeInputManager.ActivatedGestures.Add(new GestureConfigDrag());
             NativeInputManager.ActivatedGestures.Add(new GestureConfigFlick());
-            NativeInputManager.ActivatedGestures.Add(new GestureConfigTap());
+            // TODO TAP disable until Xenko fix the issue with mouse firing it
+            //NativeInputManager.ActivatedGestures.Add(new GestureConfigTap());
             NativeInputManager.ActivatedGestures.Add(new GestureConfigComposite());
         }        
     }
