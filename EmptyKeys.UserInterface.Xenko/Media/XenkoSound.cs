@@ -9,7 +9,8 @@ namespace EmptyKeys.UserInterface.Media
 {
     public class XenkoSound : SoundBase
     {
-        private SoundEffect sound;       
+        private Sound sound;
+        private SoundInstance soundInstance;
 
         /// <summary>
         /// Gets the state.
@@ -19,7 +20,7 @@ namespace EmptyKeys.UserInterface.Media
         /// </value>
         public override SoundState State
         {
-            get { return sound == null ? SoundState.Stopped : (SoundState)(int) sound.PlayState; }
+            get { return soundInstance == null ? SoundState.Stopped : (SoundState)(int)soundInstance.PlayState; }
         }
 
         /// <summary>
@@ -32,9 +33,9 @@ namespace EmptyKeys.UserInterface.Media
         {
             get
             {
-                if (sound != null)
+                if (soundInstance != null)
                 {
-                    return sound.Volume;
+                    return soundInstance.Volume;
                 }
 
                 return 0;
@@ -42,9 +43,9 @@ namespace EmptyKeys.UserInterface.Media
 
             set
             {
-                if (sound != null)
+                if (soundInstance != null)
                 {
-                    sound.Volume = value;
+                    soundInstance.Volume = value;
                 }
             }
         }
@@ -56,7 +57,7 @@ namespace EmptyKeys.UserInterface.Media
         public XenkoSound(object nativeSound)
             : base(nativeSound)
         {
-            sound = nativeSound as SoundEffect;            
+            sound = nativeSound as Sound;            
         }
 
         /// <summary>
@@ -68,8 +69,13 @@ namespace EmptyKeys.UserInterface.Media
             {
                 return;
             }
-            
-            sound.Play();
+
+            if (soundInstance == null)
+            {
+                soundInstance = sound.CreateInstance();
+            }
+
+            soundInstance.Play();
         }
 
         /// <summary>
@@ -82,7 +88,12 @@ namespace EmptyKeys.UserInterface.Media
                 return;
             }
 
-            sound.Stop();
+            if (soundInstance == null)
+            {
+                soundInstance = sound.CreateInstance();
+            }
+
+            soundInstance.Stop();
         }
 
         /// <summary>
@@ -95,7 +106,12 @@ namespace EmptyKeys.UserInterface.Media
                 return;
             }
 
-            sound.Pause();
+            if (soundInstance == null)
+            {
+                soundInstance = sound.CreateInstance();
+            }
+
+            soundInstance.Pause();
         }
     }
 }

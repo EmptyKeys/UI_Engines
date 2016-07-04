@@ -41,7 +41,7 @@ namespace EmptyKeys.UserInterface
         {
             file = file.Replace("\\", "/");
             ContentManager database = contentManager as ContentManager;
-            SoundEffect native = database.Load<SoundEffect>(file);
+            Sound native = database.Load<Sound>(file);
             return Engine.Instance.AudioDevice.CreateSound(native);
         }
     }
