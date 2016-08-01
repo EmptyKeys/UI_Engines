@@ -57,7 +57,11 @@ namespace EmptyKeys.UserInterface.Media
         public XenkoSound(object nativeSound)
             : base(nativeSound)
         {
-            sound = nativeSound as Sound;            
+            sound = nativeSound as Sound;
+            if (sound != null)
+            {
+                soundInstance = sound.CreateInstance();
+            }
         }
 
         /// <summary>

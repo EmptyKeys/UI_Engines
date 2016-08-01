@@ -32,6 +32,14 @@ namespace EmptyKeys.UserInterface.Media
         public abstract float Spacing { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the effect.
+        /// </summary>
+        /// <value>
+        /// The type of the effect.
+        /// </value>
+        public abstract FontEffectType EffectType { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FontBase"/> class.
         /// </summary>
         /// <param name="nativeFont">The native font.</param>

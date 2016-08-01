@@ -54,6 +54,7 @@
     <Compile Include="Input\MonoGameMouseState.cs" />
     <Compile Include="Input\MonoGameGamePadState.cs" />
     <Compile Include="Input\MonoGameTouchState.cs" />
+    <Compile Include="Media\MonoGameEffect.cs" />
     <Compile Include="Media\MonoGameFont.cs" />
     <Compile Include="Media\MonoGameGeometryBuffer.cs" />
     <Compile Include="Media\MonoGameTexture.cs" />
@@ -68,6 +69,11 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Shaders\DirectionalBlurShader.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

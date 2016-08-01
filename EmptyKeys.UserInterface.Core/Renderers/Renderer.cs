@@ -48,9 +48,15 @@ namespace EmptyKeys.UserInterface.Renderers
         public abstract void Begin();
 
         /// <summary>
+        /// Begins the rendering with custom effect
+        /// </summary>
+        /// <param name="effect">The effect.</param>
+        public abstract void Begin(EffectBase effect);
+
+        /// <summary>
         /// Ends rendering
         /// </summary>
-        public abstract void End();
+        public abstract void End(bool endEffect = false);
 
         /// <summary>
         /// Begins the clipped rendering
@@ -59,9 +65,16 @@ namespace EmptyKeys.UserInterface.Renderers
         public abstract void BeginClipped(Rect clipRect);
 
         /// <summary>
+        /// Begins the clipped rendering with custom effect
+        /// </summary>
+        /// <param name="clipRect">The clip rect.</param>
+        /// <param name="effect">The effect.</param>
+        public abstract void BeginClipped(Rect clipRect, EffectBase effect);
+
+        /// <summary>
         /// Ends the clipped rendering
         /// </summary>
-        public abstract void EndClipped();
+        public abstract void EndClipped(bool endEffect = false);
 
         /// <summary>
         /// Determines whether the specified rectangle is outside of clip bounds
@@ -164,5 +177,18 @@ namespace EmptyKeys.UserInterface.Renderers
         /// Resets the size of the native. Sets NativeScreenWidth and NativeScreenHeight based on active back buffer
         /// </summary>
         public abstract void ResetNativeSize();
+
+        /// <summary>
+        /// Creates the effect.
+        /// </summary>
+        /// <param name="nativeEffect">The native effect.</param>
+        /// <returns></returns>
+        public abstract EffectBase CreateEffect(object nativeEffect);
+
+        /// <summary>
+        /// Gets the SDF font effect.
+        /// </summary>
+        /// <returns></returns>
+        public abstract EffectBase GetSDFFontEffect();
     }
 }

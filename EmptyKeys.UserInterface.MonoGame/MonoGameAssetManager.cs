@@ -61,5 +61,27 @@ namespace EmptyKeys.UserInterface
             SoundEffect native = database.Load<SoundEffect>(file);
             return Engine.Instance.AudioDevice.CreateSound(native);
         }
+
+        /// <summary>
+        /// Loads the effect.
+        /// </summary>
+        /// <param name="contentManager">The content manager.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        public override EffectBase LoadEffect(object contentManager, string file)
+        {
+            ContentManager database = contentManager as ContentManager;
+            Effect native = null;
+            try
+            {
+                native = database.Load<Effect>(file);
+            }
+            catch (Exception)
+            {
+                // some built-in effects are not implemented yet
+            }
+
+            return Engine.Instance.Renderer.CreateEffect(native);
+        }
     }
 }

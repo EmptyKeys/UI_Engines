@@ -7,6 +7,7 @@ using EmptyKeys.UserInterface.Media;
 using SiliconStudio.Core.Serialization.Assets;
 using SiliconStudio.Xenko.Audio;
 using SiliconStudio.Xenko.Graphics;
+using SiliconStudio.Xenko.Rendering;
 
 namespace EmptyKeys.UserInterface
 {
@@ -20,6 +21,12 @@ namespace EmptyKeys.UserInterface
         {
         }
 
+        /// <summary>
+        /// Loads the texture.
+        /// </summary>
+        /// <param name="contentManager">The content manager.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
         public override TextureBase LoadTexture(object contentManager, string file)
         {
             file = file.Replace("\\", "/");
@@ -28,6 +35,12 @@ namespace EmptyKeys.UserInterface
             return Engine.Instance.Renderer.CreateTexture(native);
         }
 
+        /// <summary>
+        /// Loads the font.
+        /// </summary>
+        /// <param name="contentManager">The content manager.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
         public override FontBase LoadFont(object contentManager, string file)
         {
             file = file.Replace("\\", "/");
@@ -37,12 +50,32 @@ namespace EmptyKeys.UserInterface
             return Engine.Instance.Renderer.CreateFont(native);
         }
 
-        public override Media.SoundBase LoadSound(object contentManager, string file)
+        /// <summary>
+        /// Loads the sound.
+        /// </summary>
+        /// <param name="contentManager">The content manager.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        public override SoundBase LoadSound(object contentManager, string file)
         {
             file = file.Replace("\\", "/");
             ContentManager database = contentManager as ContentManager;
             Sound native = database.Load<Sound>(file);
             return Engine.Instance.AudioDevice.CreateSound(native);
+        }
+
+        /// <summary>
+        /// Loads the effect.
+        /// </summary>
+        /// <param name="contentManager">The EffectSystem instance</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        public override EffectBase LoadEffect(object contentManager, string file)
+        {
+            file = file.Replace("\\", "/");
+            EffectSystem effectSystem = contentManager as EffectSystem;            
+            Effect effect = effectSystem.LoadEffect(file).WaitForResult();
+            return Engine.Instance.Renderer.CreateEffect(effect);
         }
     }
 }

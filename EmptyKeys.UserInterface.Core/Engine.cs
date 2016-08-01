@@ -58,7 +58,7 @@ namespace EmptyKeys.UserInterface
         /// <value>
         /// The input device.
         /// </value>
-        public abstract InputDeviceBase InputDevice { get; }
+        public abstract InputDeviceBase InputDevice { get; }        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Engine"/> class.

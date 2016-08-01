@@ -56,6 +56,21 @@ namespace EmptyKeys.UserInterface.Media
         }
 
         /// <summary>
+        /// Gets or sets the type of the effect.
+        /// </summary>
+        /// <value>
+        /// The type of the effect.
+        /// </value>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override FontEffectType EffectType
+        {
+            get
+            {
+                return FontEffectType.None;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FNAFont" /> class.
         /// </summary>
         /// <param name="nativeFont">The native font.</param>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EmptyKeys.UserInterface.Media;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,13 +30,16 @@ namespace EmptyKeys.UserInterface.Renderers
         private bool isClipped;
         private Rectangle testRectangle;
         private Stack<Rectangle> clipRectanges;
-        private Vector2 vecPosition;        
+        private Vector2 vecPosition;
         private Vector2 vecScale;
         private Color vecColor;
         private Rectangle sourceRect;
         private Rectangle clipRectangle;
 
-        private BasicEffect effect;
+        private Stack<Effect> activeEffects;
+        private Effect currentActiveEffect;
+
+        private BasicEffect basicEffect;
         private RasterizerState rasterizeStateGeometry = new RasterizerState { ScissorTestEnable = false, CullMode = CullMode.None, FillMode = FillMode.Solid };
         private bool isSpriteRenderInProgress;
 
@@ -87,6 +91,7 @@ namespace EmptyKeys.UserInterface.Renderers
             }
 
             clipRectanges = new Stack<Rectangle>();
+            activeEffects = new Stack<Effect>();
         }
 
         /// <summary>
@@ -94,8 +99,18 @@ namespace EmptyKeys.UserInterface.Renderers
         /// </summary>
         public override void Begin()
         {
+            Begin(null);
+        }
+
+        /// <summary>
+        /// Begins the rendering with custom effect
+        /// </summary>
+        /// <param name="effect">The effect.</param>
+        public override void Begin(EffectBase effect)
+        {
             isClipped = false;
             isSpriteRenderInProgress = true;
+            UpdateCurrentEffect(effect);
             if (previousState != null)
             {
                 spriteBatch.GraphicsDevice.RasterizerState = previousState;
@@ -104,12 +119,31 @@ namespace EmptyKeys.UserInterface.Renderers
 
             if (clipRectanges.Count == 0)
             {
-                spriteBatch.Begin();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, currentActiveEffect);
             }
             else
             {
                 Rectangle previousClip = clipRectanges.Pop();
                 BeginClipped(previousClip);
+            }
+        }
+
+        private void UpdateCurrentEffect(EffectBase effect)
+        {
+            Effect effectInstance = effect != null ? effect.GetNativeEffect() as Effect : null;
+            if (effectInstance != null)
+            {
+                if (currentActiveEffect != null)
+                {
+                    activeEffects.Push(currentActiveEffect);
+                }
+
+                currentActiveEffect = effectInstance;
+            }
+
+            if (currentActiveEffect == null && activeEffects.Count > 0)
+            {
+                currentActiveEffect = activeEffects.Pop();
             }
         }
 
@@ -124,7 +158,7 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="scale">The scale.</param>
         /// <param name="depth">The depth.</param>
         public override void DrawText(FontBase font, string text, PointF position, Size renderSize, ColorW color, PointF scale, float depth)
-        {           
+        {
             if (isClipped)
             {
                 testRectangle.X = (int)position.X;
@@ -145,7 +179,7 @@ namespace EmptyKeys.UserInterface.Renderers
             vecColor.PackedValue = color.PackedValue;
             SpriteFont native = font.GetNativeFont() as SpriteFont;
             spriteBatch.DrawString(native, text, vecPosition, vecColor);
-        }        
+        }
 
         /// <summary>
         /// Draws the specified texture.
@@ -156,7 +190,7 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="color">The color.</param>
         /// <param name="centerOrigin">if set to <c>true</c> [center origin].</param>
         public override void Draw(TextureBase texture, PointF position, Size renderSize, ColorW color, bool centerOrigin)
-        {            
+        {
             testRectangle.X = (int)position.X;
             testRectangle.Y = (int)position.Y;
             testRectangle.Width = (int)renderSize.Width;
@@ -181,7 +215,7 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="source">The source.</param>
         /// <param name="centerOrigin">if set to <c>true</c> [center origin].</param>
         public override void Draw(TextureBase texture, PointF position, Size renderSize, ColorW color, Rect source, bool centerOrigin)
-        {            
+        {
             testRectangle.X = (int)position.X;
             testRectangle.Y = (int)position.Y;
             testRectangle.Width = (int)renderSize.Width;
@@ -203,10 +237,20 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <summary>
         /// Ends rendering
         /// </summary>
-        public override void End()
+        public override void End(bool endEffect = false)
         {
             isClipped = false;
             isSpriteRenderInProgress = false;
+            if (endEffect)
+            {
+                currentActiveEffect = null;
+            }
+            else
+            {
+                activeEffects.Push(currentActiveEffect);
+                currentActiveEffect = null;
+            }
+
             spriteBatch.End();
         }
 
@@ -216,14 +260,30 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="clipRect">The clip rect.</param>
         public override void BeginClipped(Rect clipRect)
         {
+            BeginClipped(clipRect, null);
+        }
+
+        /// <summary>
+        /// Begins the clipped rendering with custom effect
+        /// </summary>
+        /// <param name="clipRect">The clip rect.</param>
+        /// <param name="effect">The effect.</param>
+        public override void BeginClipped(Rect clipRect, EffectBase effect)
+        {
             clipRectangle.X = (int)clipRect.X;
             clipRectangle.Y = (int)clipRect.Y;
             clipRectangle.Width = (int)clipRect.Width;
             clipRectangle.Height = (int)clipRect.Height;
 
+            UpdateCurrentEffect(effect);
+
             BeginClipped(clipRectangle);
         }
-        
+
+        /// <summary>
+        /// Begins the clipped.
+        /// </summary>
+        /// <param name="clipRect">The clip rect.</param>
         private void BeginClipped(Rectangle clipRect)
         {
             isClipped = true;
@@ -246,18 +306,28 @@ namespace EmptyKeys.UserInterface.Renderers
 
             spriteBatch.GraphicsDevice.ScissorRectangle = clipRect;
             previousState = spriteBatch.GraphicsDevice.RasterizerState;
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, clippingRasterizeState);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, clippingRasterizeState, effect: currentActiveEffect);
             clipRectanges.Push(clipRect);
         }
 
         /// <summary>
         /// Ends the clipped drawing
         /// </summary>
-        public override void EndClipped()
+        public override void EndClipped(bool endEffect = false)
         {
             isClipped = false;
             isSpriteRenderInProgress = false;
-            spriteBatch.End();            
+            if (endEffect)
+            {
+                currentActiveEffect = null;
+            }
+            else
+            {
+                activeEffects.Push(currentActiveEffect);
+                currentActiveEffect = null;
+            }
+
+            spriteBatch.End();
             clipRectanges.Pop();
         }
 
@@ -345,26 +415,20 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="depth">The depth.</param>
         public override void DrawGeometryColor(GeometryBuffer buffer, PointF position, ColorW color, float opacity, float depth)
         {
-            if (effect == null)
+            if (basicEffect == null)
             {
-                effect = new BasicEffect(GraphicsDevice);                
+                basicEffect = new BasicEffect(GraphicsDevice);
             }
 
-            effect.Alpha = color.A / (float)byte.MaxValue * opacity;
+            basicEffect.Alpha = color.A / (float)byte.MaxValue * opacity;
             //color = color * effect.Alpha;
-            effect.DiffuseColor = new Vector3(color.R / (float)byte.MaxValue, color.G / (float)byte.MaxValue, color.B / (float)byte.MaxValue);
-            effect.TextureEnabled = false;
-            effect.VertexColorEnabled = true;
+            basicEffect.DiffuseColor = new Vector3(color.R / (float)byte.MaxValue, color.G / (float)byte.MaxValue, color.B / (float)byte.MaxValue);
+            basicEffect.TextureEnabled = false;
+            basicEffect.VertexColorEnabled = true;
 
             DrawGeometry(buffer, position, depth);
         }
 
-        /// <summary>
-        /// Draws the geometry.
-        /// </summary>
-        /// <param name="buffer">The buffer.</param>
-        /// <param name="position">The position.</param>
-        /// <param name="depth">The depth.</param>
         private void DrawGeometry(GeometryBuffer buffer, PointF position, float depth)
         {
             if (isSpriteRenderInProgress)
@@ -381,7 +445,7 @@ namespace EmptyKeys.UserInterface.Renderers
 
             device.BlendState = BlendState.AlphaBlend;
             device.DepthStencilState = DepthStencilState.DepthRead;
-            
+
             if (isClipped)
             {
                 device.RasterizerState = clippingRasterizeState;
@@ -391,12 +455,12 @@ namespace EmptyKeys.UserInterface.Renderers
                 device.RasterizerState = rasterizeStateGeometry;
             }
 
-            effect.World = Matrix.CreateTranslation(position.X, position.Y, depth);
-            effect.View = Matrix.CreateLookAt(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Zero, Vector3.Up);
-            effect.Projection = Matrix.CreateOrthographicOffCenter(0, (float)device.Viewport.Width, (float)device.Viewport.Height, 0, 1.0f, 1000.0f);
-            
+            basicEffect.World = Matrix.CreateTranslation(position.X, position.Y, depth);
+            basicEffect.View = Matrix.CreateLookAt(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Zero, Vector3.Up);
+            basicEffect.Projection = Matrix.CreateOrthographicOffCenter(0, (float)device.Viewport.Width, (float)device.Viewport.Height, 0, 1.0f, 1000.0f);
+
             device.SetVertexBuffer(monoGameBuffer.VertexBuffer);
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
 
@@ -416,7 +480,7 @@ namespace EmptyKeys.UserInterface.Renderers
                         break;
                     default:
                         break;
-                }                
+                }
             }
 
             device.DepthStencilState = stencilState;
@@ -427,11 +491,11 @@ namespace EmptyKeys.UserInterface.Renderers
             {
                 if (isClipped)
                 {
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, clippingRasterizeState);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, clippingRasterizeState, effect: currentActiveEffect);
                 }
                 else
                 {
-                    spriteBatch.Begin();
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, currentActiveEffect);
                 }
             }
         }
@@ -446,16 +510,16 @@ namespace EmptyKeys.UserInterface.Renderers
         /// <param name="depth">The depth.</param>
         public override void DrawGeometryTexture(GeometryBuffer buffer, PointF position, TextureBase texture, float opacity, float depth)
         {
-            if (effect == null)
+            if (basicEffect == null)
             {
-                effect = new BasicEffect(GraphicsDevice);                
+                basicEffect = new BasicEffect(GraphicsDevice);
             }
 
-            effect.Alpha = opacity;
-            effect.DiffuseColor = new Vector3(1, 1, 1);
-            effect.Texture = texture.GetNativeTexture() as Texture2D;
-            effect.VertexColorEnabled = false;
-            effect.TextureEnabled = true;
+            basicEffect.Alpha = opacity;
+            basicEffect.DiffuseColor = new Vector3(1, 1, 1);
+            basicEffect.Texture = texture.GetNativeTexture() as Texture2D;
+            basicEffect.VertexColorEnabled = false;
+            basicEffect.TextureEnabled = true;
 
             DrawGeometry(buffer, position, depth);
         }
@@ -482,6 +546,26 @@ namespace EmptyKeys.UserInterface.Renderers
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Creates the effect.
+        /// </summary>
+        /// <param name="nativeEffect">The native effect.</param>
+        /// <returns></returns> 
+        public override EffectBase CreateEffect(object nativeEffect)
+        {
+            return new FNAEffect(nativeEffect);
+        }
+
+        /// <summary>
+        /// Gets the SDF font effect.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override EffectBase GetSDFFontEffect()
+        {
+            throw new NotImplementedException();
         }
     }
 }

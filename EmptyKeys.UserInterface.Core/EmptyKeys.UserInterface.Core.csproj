@@ -61,7 +61,9 @@
     <Compile Include="Media\AudioDevice.cs" />
     <Compile Include="Media\Colors.cs" />
     <Compile Include="Media\ColorW.cs" />
+    <Compile Include="Media\EffectBase.cs" />
     <Compile Include="Media\FontBase.cs" />
+    <Compile Include="Media\FontEffectType.cs" />
     <Compile Include="Media\GeometryBuffer.cs" />
     <Compile Include="Media\GeometryPrimitiveType.cs" />
     <Compile Include="Media\GradientSpreadMethod.cs" />

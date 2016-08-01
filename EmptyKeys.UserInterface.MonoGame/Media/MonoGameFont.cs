@@ -56,6 +56,20 @@ namespace EmptyKeys.UserInterface.Media
         }
 
         /// <summary>
+        /// Gets or sets the type of the effect.
+        /// </summary>
+        /// <value>
+        /// The type of the effect.
+        /// </value>
+        public override FontEffectType EffectType
+        {
+            get
+            {
+                return FontEffectType.None;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MonoGameFont" /> class.
         /// </summary>
         /// <param name="nativeFont">The native font.</param>

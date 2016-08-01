@@ -37,5 +37,13 @@ namespace EmptyKeys.UserInterface
         /// <param name="file">The file.</param>
         /// <returns></returns>
         public abstract SoundBase LoadSound(object contentManager, string file);
+
+        /// <summary>
+        /// Loads the effect.
+        /// </summary>
+        /// <param name="contentManager">The content manager.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        public abstract EffectBase LoadEffect(object contentManager, string file);
     }
 }
