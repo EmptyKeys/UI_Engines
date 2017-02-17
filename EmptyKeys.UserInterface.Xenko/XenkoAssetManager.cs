@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Media;
-using SiliconStudio.Core.Serialization.Assets;
+using SiliconStudio.Core.Serialization.Contents;
 using SiliconStudio.Xenko.Audio;
 using SiliconStudio.Xenko.Graphics;
 using SiliconStudio.Xenko.Rendering;

@@ -216,6 +216,16 @@ namespace EmptyKeys.UserInterface
         }
 
         /// <summary>
+        /// Determines whether the specified rectangle intersects with this rectangle.
+        /// </summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns></returns>
+        public bool Intersects(Rect rectangle)
+        {
+            return rectangle.Left < Right && Left < rectangle.Right && rectangle.Top < Bottom && Top < rectangle.Bottom;
+        }
+
+        /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
