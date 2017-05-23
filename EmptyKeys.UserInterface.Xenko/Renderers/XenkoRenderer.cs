@@ -62,6 +62,7 @@ namespace EmptyKeys.UserInterface.Renderers
         private Rectangle testRectangle;
         private Rectangle sourceRect;
         private Rectangle currentScissorRectangle;
+        private Rectangle[] clipArray;
         private Stack<Rectangle> clipRectanges;
         private Stack<EffectInstance> activeEffects;
         private EffectInstance currentActiveEffect;
@@ -105,7 +106,9 @@ namespace EmptyKeys.UserInterface.Renderers
             geometryRasterizerStateDescription = RasterizerStates.CullNone;            
             //geometryRasterizerStateDescription.FillMode = FillMode.Wireframe;            
             geometryPipelineState = new MutablePipelineState(manager.GraphicsDevice);
-            geometryPipelineState.State.DepthStencilState = DepthStencilStates.None;            
+            geometryPipelineState.State.DepthStencilState = DepthStencilStates.None;
+
+            clipArray = new Rectangle[1];
         }
 
         /// <summary>
@@ -222,7 +225,8 @@ namespace EmptyKeys.UserInterface.Renderers
                 clipRectanges.Push(previousClip);
             }
 
-            graphicsContext.CommandList.SetScissorRectangles(clipRect.Left, clipRect.Top, clipRect.Right, clipRect.Bottom);            
+            clipArray[0] = clipRect;
+            graphicsContext.CommandList.SetScissorRectangles(1, clipArray);            
             
             currentScissorRectangle = clipRect;
             spriteBatch.Begin(graphicsContext, SpriteSortMode.Deferred, depthStencilState: DepthStencilStates.None, rasterizerState: scissorRasterizerStateDescription, effect: currentActiveEffect);
@@ -483,8 +487,7 @@ namespace EmptyKeys.UserInterface.Renderers
             Matrix.MultiplyTo(ref worldView, ref projection, out worldViewProjection);            
 
             XenkoGeometryBuffer paradoxBuffer = buffer as XenkoGeometryBuffer;            
-            paradoxBuffer.EffectInstance.Parameters.Set(SpriteBaseKeys.MatrixTransform, worldViewProjection);
-            paradoxBuffer.EffectInstance.Apply(graphicsContext);
+            paradoxBuffer.EffectInstance.Parameters.Set(SpriteBaseKeys.MatrixTransform, worldViewProjection);            
             
             if (isClipped)
             {
@@ -518,7 +521,8 @@ namespace EmptyKeys.UserInterface.Renderers
             geometryPipelineState.State.InputElements = paradoxBuffer.InputElementDescriptions;            
             geometryPipelineState.State.Output.CaptureState(graphicsContext.CommandList);            
             geometryPipelineState.Update();
-            graphicsContext.CommandList.SetPipelineState(geometryPipelineState.CurrentState);            
+            graphicsContext.CommandList.SetPipelineState(geometryPipelineState.CurrentState);
+            paradoxBuffer.EffectInstance.Apply(graphicsContext);
 
             graphicsContext.CommandList.SetVertexBuffer(0, paradoxBuffer.VertexBufferBinding.Buffer, 0, paradoxBuffer.VertexBufferBinding.Stride);            
             graphicsContext.CommandList.Draw(paradoxBuffer.PrimitiveCount);
