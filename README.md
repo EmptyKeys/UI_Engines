@@ -2,7 +2,7 @@
 Engine specific libraries for Empty Keys UI
 
 ## Prerequisites
-Visual Studio 2015 Update 3+, MonoGame 3.6 and Xenko 2.X+ installed
+Visual Studio 2017 15.9.2+, MonoGame 3.7 and Xenko 3.X+ installed
 
 ## EmptyKeys.UserInterface.Core
 Core library with abstract classes and simple types
