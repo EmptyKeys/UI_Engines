@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SiliconStudio.Xenko.Graphics;
-using SiliconStudio.Xenko.Rendering;
+using Xenko.Graphics;
+using Xenko.Rendering;
 
 namespace EmptyKeys.UserInterface.Media
 {
@@ -52,6 +52,11 @@ namespace EmptyKeys.UserInterface.Media
 
         public override void UpdateEffectParameters(params object[] parameterValues)
         {
+            if (parameterValues == null)
+            {
+                return;
+            }
+
             if (effect.Name == "DirectionalBlurShader")
             {
                 float angle = (float)parameterValues[0];

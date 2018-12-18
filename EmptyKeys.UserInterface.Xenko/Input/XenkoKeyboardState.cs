@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SiliconStudio.Xenko.Input;
+using Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {

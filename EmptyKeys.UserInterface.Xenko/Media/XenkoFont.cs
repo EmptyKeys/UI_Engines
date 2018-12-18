@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Xenko.Graphics;
+using Xenko.Core.Mathematics;
+using Xenko.Graphics;
 
 namespace EmptyKeys.UserInterface.Media
 {

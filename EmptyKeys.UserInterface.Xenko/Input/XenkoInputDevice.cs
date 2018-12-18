@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SiliconStudio.Xenko.Input;
+using Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
@@ -12,7 +12,7 @@ namespace EmptyKeys.UserInterface.Input
     /// </summary>
     public class XenkoInputDevice : InputDeviceBase
     {
-        public static SiliconStudio.Xenko.Input.InputManager NativeInputManager
+        public static Xenko.Input.InputManager NativeInputManager
         {
             get;
             set;
@@ -73,11 +73,10 @@ namespace EmptyKeys.UserInterface.Input
         public XenkoInputDevice()
             : base()
         {
-            NativeInputManager.ActivatedGestures.Add(new GestureConfigDrag());
-            NativeInputManager.ActivatedGestures.Add(new GestureConfigFlick());
-            // TODO TAP disable until Xenko fix the issue with mouse firing it
-            //NativeInputManager.ActivatedGestures.Add(new GestureConfigTap());
-            NativeInputManager.ActivatedGestures.Add(new GestureConfigComposite());
+            NativeInputManager.Gestures.Add(new GestureConfigDrag());
+            NativeInputManager.Gestures.Add(new GestureConfigFlick());            
+            //NativeInputManager.Gestures.Add(new GestureConfigTap());
+            NativeInputManager.Gestures.Add(new GestureConfigComposite());
         }        
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Input;
 using EmptyKeys.UserInterface.Media;
 using EmptyKeys.UserInterface.Renderers;
-using SiliconStudio.Xenko.Games;
-using SiliconStudio.Xenko.Rendering;
+using Xenko.Games;
+using Xenko.Rendering;
 
 namespace EmptyKeys.UserInterface
 {

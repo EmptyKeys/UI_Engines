@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Renderers;
-using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Xenko.Graphics;
-using Texture2D = SiliconStudio.Xenko.Graphics.Texture;
+using Xenko.Core.Mathematics;
+using Xenko.Graphics;
+using Texture2D = Xenko.Graphics.Texture;
 
 namespace EmptyKeys.UserInterface.Media
 {

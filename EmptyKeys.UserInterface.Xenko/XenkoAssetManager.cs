@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Media;
-using SiliconStudio.Core.Serialization.Contents;
-using SiliconStudio.Xenko.Audio;
-using SiliconStudio.Xenko.Graphics;
-using SiliconStudio.Xenko.Rendering;
+using Xenko.Core.Serialization.Contents;
+using Xenko.Audio;
+using Xenko.Graphics;
+using Xenko.Rendering;
 
 namespace EmptyKeys.UserInterface
 {
@@ -56,7 +56,7 @@ namespace EmptyKeys.UserInterface
         /// <param name="contentManager">The content manager.</param>
         /// <param name="file">The file.</param>
         /// <returns></returns>
-        public override SoundBase LoadSound(object contentManager, string file)
+        public override Media.SoundBase LoadSound(object contentManager, string file)
         {
             file = file.Replace("\\", "/");
             ContentManager database = contentManager as ContentManager;

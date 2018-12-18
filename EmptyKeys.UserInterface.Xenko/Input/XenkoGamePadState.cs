@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SiliconStudio.Xenko.Input;
+using Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
@@ -203,9 +203,10 @@ namespace EmptyKeys.UserInterface.Input
         /// <param name="gamePadIndex">Index of the game pad.</param>
         public override void Update(int gamePadIndex)
         {
-            if (XenkoInputDevice.NativeInputManager.HasGamePad)
+            var input = XenkoInputDevice.NativeInputManager;
+            if (input.HasGamePad)
             {
-                state = XenkoInputDevice.NativeInputManager.GetGamePad(0);
+                state = input.DefaultGamePad.State;                               
             }
         }
     }

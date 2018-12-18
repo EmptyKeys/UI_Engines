@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Xenko.Input;
+using Xenko.Core.Mathematics;
+using Xenko.Input;
 
 namespace EmptyKeys.UserInterface.Input
 {
@@ -21,7 +21,7 @@ namespace EmptyKeys.UserInterface.Input
         private float moveX;
         private float moveY;
         private bool hasGesture;
-        private PointerState previousState;
+        private PointerEventType previousState;
         private Vector2 previousLocation;
         private int id;
 
@@ -132,12 +132,12 @@ namespace EmptyKeys.UserInterface.Input
             isTouched = false;
             hasGesture = false;
 
-            SiliconStudio.Xenko.Input.InputManager manager = XenkoInputDevice.NativeInputManager;
+            Xenko.Input.InputManager manager = XenkoInputDevice.NativeInputManager;
 
             if (manager.PointerEvents.Count > 0)
             {
                 var pointerEvent = manager.PointerEvents[0];
-                if (pointerEvent.PointerType != PointerType.Touch)
+                if (pointerEvent.Pointer is IMouseDevice)
                 {
                     isTouched = false;
                     return;
@@ -147,32 +147,29 @@ namespace EmptyKeys.UserInterface.Input
                 isTouched = true;
                 normalizedX = pointerEvent.Position.X;
                 normalizedY = pointerEvent.Position.Y;
-                previousState = pointerEvent.State;
+                previousState = pointerEvent.EventType;
                 previousLocation = pointerEvent.Position;
-                switch (pointerEvent.State)
-                {
-                    case PointerState.Cancel:
-                        action = TouchAction.None;
-                        break;
-                    case PointerState.Down:
+                switch (pointerEvent.EventType)
+                {                    
+                    case PointerEventType.Pressed:
                         action = TouchAction.Pressed;
                         break;
-                    case PointerState.Move:
+                    case PointerEventType.Moved:
                         action = TouchAction.Moved;
-                        break;
-                    case PointerState.Out:
-                        action = TouchAction.None;
-                        break;
-                    case PointerState.Up:
+                        break;                    
+                    case PointerEventType.Released:
                         action = TouchAction.Released;
+                        break;
+                    case PointerEventType.Canceled:
+                        action = TouchAction.None;
                         break;
                     default:
                         break;
                 }
             }
-            else if (previousState == PointerState.Move)
+            else if (previousState == PointerEventType.Moved)
             {
-                previousState = PointerState.Out;
+                previousState = PointerEventType.Canceled;
                 action = TouchAction.Released;
                 normalizedX = previousLocation.X;
                 normalizedY = previousLocation.Y;

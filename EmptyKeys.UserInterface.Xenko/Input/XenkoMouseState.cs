@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using SiliconStudio.Core.Mathematics;
+using Xenko.Core.Mathematics;
 
 namespace EmptyKeys.UserInterface.Input
 {
@@ -22,7 +22,7 @@ namespace EmptyKeys.UserInterface.Input
         /// </value>
         public override bool IsLeftButtonPressed
         {
-            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(SiliconStudio.Xenko.Input.MouseButton.Left); }
+            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(Xenko.Input.MouseButton.Left); }
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace EmptyKeys.UserInterface.Input
         /// </value>
         public override bool IsMiddleButtonPressed
         {
-            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(SiliconStudio.Xenko.Input.MouseButton.Middle); }
+            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(Xenko.Input.MouseButton.Middle); }
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace EmptyKeys.UserInterface.Input
         /// </value>
         public override bool IsRightButtonPressed
         {
-            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(SiliconStudio.Xenko.Input.MouseButton.Right); }
+            get { return XenkoInputDevice.NativeInputManager.IsMouseButtonDown(Xenko.Input.MouseButton.Right); }
         }
 
         /// <summary>

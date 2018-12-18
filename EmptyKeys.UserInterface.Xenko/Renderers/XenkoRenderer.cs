@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Media;
-using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Xenko.Games;
-using SiliconStudio.Xenko.Graphics;
-using SiliconStudio.Xenko.Rendering;
-using Texture2D = SiliconStudio.Xenko.Graphics.Texture;
+using Xenko.Core.Mathematics;
+using Xenko.Games;
+using Xenko.Graphics;
+using Xenko.Rendering;
+using Texture2D = Xenko.Graphics.Texture;
 
 namespace EmptyKeys.UserInterface.Renderers
 {

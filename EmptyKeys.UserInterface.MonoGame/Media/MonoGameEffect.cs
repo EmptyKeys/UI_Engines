@@ -39,6 +39,11 @@ namespace EmptyKeys.UserInterface.Media
         /// <param name="parameterValues">The parameter values.</param>
         public override void UpdateEffectParameters(params object[] parameterValues)
         {
+            if (parameterValues == null)
+            {
+                return;
+            }
+
             if (effect.Name == "DirectionalBlurShader")
             {
                 float angle = (float)parameterValues[0];

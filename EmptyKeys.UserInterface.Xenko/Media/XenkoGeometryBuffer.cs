@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyKeys.UserInterface.Renderers;
-using SiliconStudio.Core;
-using SiliconStudio.Core.Mathematics;
-using SiliconStudio.Xenko.Graphics;
-using SiliconStudio.Xenko.Rendering;
-using VertexBuffer = SiliconStudio.Xenko.Graphics.Buffer;
+using Xenko.Core;
+using Xenko.Core.Mathematics;
+using Xenko.Graphics;
+using Xenko.Rendering;
+using VertexBuffer = Xenko.Graphics.Buffer;
 
 namespace EmptyKeys.UserInterface.Media
 {
