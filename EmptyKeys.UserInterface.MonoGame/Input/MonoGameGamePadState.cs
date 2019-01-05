@@ -15,6 +15,26 @@ namespace EmptyKeys.UserInterface.Input
     {
         private GamePadState state;
         private PlayerIndex playerIndex;
+        private bool enabled = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether or not the gamepad is enabled
+        /// </summary>
+        /// <value><c>true</c> if the gamepad is enabled;  otherwise, <c>false</c></value>
+        public bool Enabled 
+        {
+            get
+            {
+                return enabled;
+            }     
+            set
+            {
+                if(value = false)
+                    state = default(GamePadState);
+
+                enabled = value;
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether this instance is a button pressed.
@@ -359,7 +379,9 @@ namespace EmptyKeys.UserInterface.Input
         public override void Update(int gamePadIndex)
         {
             playerIndex = (PlayerIndex)gamePadIndex;
-            state = Microsoft.Xna.Framework.Input.GamePad.GetState(playerIndex);
+
+            if (this.Enabled)
+                state = Microsoft.Xna.Framework.Input.GamePad.GetState(playerIndex);
         }
     }
 }
