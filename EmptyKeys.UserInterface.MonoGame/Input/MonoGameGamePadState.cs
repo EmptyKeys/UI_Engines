@@ -29,7 +29,7 @@ namespace EmptyKeys.UserInterface.Input
             }     
             set
             {
-                if(value = false)
+                if(value == false)
                     state = default(GamePadState);
 
                 enabled = value;
