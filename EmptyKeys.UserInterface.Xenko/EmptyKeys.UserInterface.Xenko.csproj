@@ -8,7 +8,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EmptyKeys.UserInterface.Xenko</RootNamespace>
-    <Version>3.1.0</Version>
+    <Version>3.2.0</Version>
     <Copyright>Copyright © 2018 Empty Keys, Filip Dušek</Copyright>
     <Company>Empty Keys, Filip Dušek</Company>
     <Authors>Empty Keys, Filip Dušek</Authors>

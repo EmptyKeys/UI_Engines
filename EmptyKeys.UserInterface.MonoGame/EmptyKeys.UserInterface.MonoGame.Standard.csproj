@@ -14,8 +14,8 @@
     <Product>EmptyKeys.UserInterface.MonoGame</Product>
     <Copyright>Copyright © 2018 Empty Keys, Filip Dušek</Copyright>
     <Company>Empty Keys</Company>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <Version>3.1.0</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <Version>3.2.0</Version>
     <Authors>Empty Keys, Filip Dušek</Authors>
     <AssemblyName>EmptyKeys.UserInterface.MonoGame</AssemblyName>
     <RootNamespace>EmptyKeys.UserInterface.MonoGame</RootNamespace>
