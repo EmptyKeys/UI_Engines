@@ -77,6 +77,16 @@ namespace EmptyKeys.UserInterface.Input
             NativeInputManager.Gestures.Add(new GestureConfigFlick());            
             //NativeInputManager.Gestures.Add(new GestureConfigTap());
             NativeInputManager.Gestures.Add(new GestureConfigComposite());
-        }        
+        }
+
+        /// <inheritdoc/>
+        public override void ShowVirtualKeyboard(Action<string> onSuccess, Action onCancel = null, string defaultText = null, string title = null, int maxLength = 0)
+        {
+        }
+
+        /// <inheritdoc/>
+        public override void Update()
+        {
+        }
     }
 }

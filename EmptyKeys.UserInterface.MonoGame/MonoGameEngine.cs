@@ -74,6 +74,11 @@ namespace EmptyKeys.UserInterface
             : base()
         {            
             renderer = new MonoGameRenderer(graphicsDevice, nativeScreenWidth, nativeScreenHeight);
-        }        
+        }
+
+        /// <inheritdoc/>
+        public override void Update()
+        {            
+        }
     }
 }

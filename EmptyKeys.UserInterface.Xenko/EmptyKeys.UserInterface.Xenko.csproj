@@ -15,7 +15,7 @@
     <Description>Empty Keys UI Xenko engine library</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xenko" Version="3.0.0.5">
+    <PackageReference Include="Xenko" Version="3.1.0.2">
       <PrivateAssets>contentfiles;analyzers</PrivateAssets>
     </PackageReference>
   </ItemGroup>  

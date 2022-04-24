@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -12,10 +12,10 @@
     <PackageId>EmptyKeys.UserInterface.MonoGame</PackageId>
     <Description>MonoGame Library for Empty Keys UI</Description>
     <Product>EmptyKeys.UserInterface.MonoGame</Product>
-    <Copyright>Copyright © 2018 Empty Keys, Filip Dušek</Copyright>
+    <Copyright>Copyright © 2020 Empty Keys, Filip Dušek</Copyright>
     <Company>Empty Keys</Company>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <Version>3.2.0</Version>
+    <AssemblyVersion>3.3.0.0</AssemblyVersion>
+    <Version>3.3.0</Version>
     <Authors>Empty Keys, Filip Dušek</Authors>
     <AssemblyName>EmptyKeys.UserInterface.MonoGame</AssemblyName>
     <RootNamespace>EmptyKeys.UserInterface.MonoGame</RootNamespace>
@@ -46,13 +46,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmptyKeys.UserInterface.Core\EmptyKeys.UserInterface.Core.Standard.csproj" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\EmptyKeys.UserInterface.Core\EmptyKeys.UserInterface.Core.Standard.csproj" />
   </ItemGroup>
 
 </Project>

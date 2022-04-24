@@ -67,5 +67,10 @@ namespace EmptyKeys.UserInterface
         {
             instance = this;
         }
+
+        /// <summary>
+        /// Update method
+        /// </summary>
+        public abstract void Update();
     }
 }

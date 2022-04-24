@@ -69,6 +69,16 @@ namespace EmptyKeys.UserInterface.Input
         {
             TouchPanel.EnabledGestures = GestureType.Tap | GestureType.HorizontalDrag |
                 GestureType.VerticalDrag;
-        }        
+        }
+
+        /// <inheritdoc/>
+        public override void ShowVirtualKeyboard(Action<string> onSuccess, Action onCancel = null, string defaultText = null, string title = null, int maxLength = 0)
+        {            
+        }
+
+        /// <inheritdoc/>
+        public override void Update()
+        {
+        }
     }
 }

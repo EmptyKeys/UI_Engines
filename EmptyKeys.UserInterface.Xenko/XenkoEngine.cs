@@ -75,6 +75,11 @@ namespace EmptyKeys.UserInterface
             : base()
         {
             renderer = new XenkoRenderer(manager, effectSystem);
-        }        
+        }
+
+        /// <inheritdoc/>
+        public override void Update()
+        {
+        }
     }
 }
