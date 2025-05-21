@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Shaders\DirectionalBlurShader.sdsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LastGenOutput>DirectionalBlurShader.cs</LastGenOutput>
+      <Generator>StrideShaderKeyGenerator</Generator>
+    </Content>
+    <Content Include="Shaders\SDFFontShader.sdsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LastGenOutput>SDFFontShader.cs</LastGenOutput>
+      <Generator>StrideShaderKeyGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Stride.Audio" Version="4.2.0.2381" />
+    <PackageReference Include="Stride.Games" Version="4.2.0.2381" />
+    <PackageReference Include="Stride.Input" Version="4.2.0.2381" />
+    <PackageReference Include="Stride.Rendering" Version="4.2.0.2381" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmptyKeys.UserInterface.Core\EmptyKeys.UserInterface.Core.Standard.csproj" />
+  </ItemGroup>
+
+</Project>
